@@ -1,4 +1,4 @@
-namespace MartWeb.Models
+namespace Mart.Models
 {
     public class ErrorViewModel
     {

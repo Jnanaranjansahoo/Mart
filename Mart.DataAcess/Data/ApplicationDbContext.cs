@@ -1,7 +1,7 @@
-﻿using MartWeb.Models;
+﻿using Mart.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MartWeb.Data
+namespace Mart.DataAcess.Data
 {
     public class ApplicationDbContext : DbContext
     {

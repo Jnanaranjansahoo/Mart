@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MartWeb.Migrations
+namespace Mart.DataAcess.Migrations
 {
     /// <inheritdoc />
     public partial class adddatabasetoproj : Migration

@@ -1,4 +1,4 @@
-using MartWeb.Data;
+using Mart.DataAcess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

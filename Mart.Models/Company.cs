@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MartWeb.Models
+namespace Mart.Models
 {
     public class Company
     {

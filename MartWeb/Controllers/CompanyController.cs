@@ -1,5 +1,5 @@
-﻿using MartWeb.Data;
-using MartWeb.Models;
+﻿using Mart.DataAcess.Data;
+using Mart.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MartWeb.Controllers

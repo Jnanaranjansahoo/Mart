@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mart.DataAcess\Mart.DataAcess.csproj" />
+  </ItemGroup>
+
 </Project>
