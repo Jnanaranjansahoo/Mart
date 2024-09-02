@@ -3,11 +3,12 @@ using Mart.DataAcess.Repository.IRepository;
 using Mart.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MartWeb.Controllers
+namespace MartWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CompanyController : Controller
     {
-        private readonly IUnitOfWork _unitofwork ;
+        private readonly IUnitOfWork _unitofwork;
         public CompanyController(IUnitOfWork unitofwork)
         {
             _unitofwork = unitofwork;

@@ -3,8 +3,9 @@ using Mart.DataAcess.Repository.IRepository;
 using Mart.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MartWeb.Controllers
+namespace MartWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitofwork;

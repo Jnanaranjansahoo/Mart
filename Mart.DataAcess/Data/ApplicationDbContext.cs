@@ -1,5 +1,7 @@
 ﻿using Mart.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.Design;
+using System.Diagnostics;
 
 namespace Mart.DataAcess.Data
 {
@@ -11,6 +13,7 @@ namespace Mart.DataAcess.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Company> Companies { get; set; }
+        //public DbSet<Product> Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -26,6 +29,40 @@ namespace Mart.DataAcess.Data
                 new Company { Id = 1112, Name = " Everything"},
                 new Company { Id = 1113, Name = " Anything"}
               );
+            //modelBuilder.Entity<Product>().HasData
+            //  (
+            //    new Product 
+            //    { 
+            //        Id = 10001,
+            //        Name = " qwer",
+            //        Description = " Nothing",
+            //        Price = 300,
+            //        CategoryId = 1001,
+            //        CompanyId = 1111,
+            //        ImageUrl = ""
+            //    },
+            //    new Product
+            //    {
+            //        Id = 10002,
+            //        Name = " asdfr",
+            //        Description = " Nothing",
+            //        Price = 300,
+            //        CategoryId = 1001,
+            //        CompanyId = 1111,
+            //        ImageUrl = ""
+            //    },
+            //    new Product 
+            //    {
+            //        Id = 10001,
+            //        Name = " €zxc",
+            //        Description = " Nothing",
+            //        Price = 300,
+            //        CategoryId = 1001,
+            //        CompanyId = 1111,
+            //        ImageUrl = ""
+            //    }
+               
+              //);
         }
     }
 }
