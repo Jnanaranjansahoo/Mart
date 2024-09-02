@@ -1,4 +1,5 @@
 ﻿using Mart.DataAcess.Data;
+using Mart.DataAcess.Repository.IRepository;
 using Mart.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,14 @@ namespace MartWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitofwork;
+        public CategoryController(IUnitOfWork unitofwork)
         {
-            _db = db;
+            _unitofwork = unitofwork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _unitofwork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -27,8 +28,8 @@ namespace MartWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _unitofwork.Category.Add(obj);
+                _unitofwork.Save();
                 TempData["success"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
@@ -41,7 +42,7 @@ namespace MartWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _unitofwork.Category.Get(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -54,8 +55,8 @@ namespace MartWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitofwork.Category.Update(obj);
+                _unitofwork.Save();
                 TempData["success"] = "Category Update Successfully";
                 return RedirectToAction("Index", "Category");
             }
@@ -68,7 +69,7 @@ namespace MartWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _unitofwork.Category.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -79,13 +80,13 @@ namespace MartWeb.Controllers
         public IActionResult DeletePOST(int? id)
         {
 
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _unitofwork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitofwork.Category.Remove(obj);
+            _unitofwork.Save();
             TempData["success"] = "Category Delete Successfully";
             return RedirectToAction("Index", "Category");
         }

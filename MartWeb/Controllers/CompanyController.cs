@@ -1,4 +1,5 @@
 ﻿using Mart.DataAcess.Data;
+using Mart.DataAcess.Repository.IRepository;
 using Mart.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,14 @@ namespace MartWeb.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CompanyController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitofwork ;
+        public CompanyController(IUnitOfWork unitofwork)
         {
-            _db = db;
+            _unitofwork = unitofwork;
         }
         public IActionResult Index()
         {
-            List<Company> objCompanyList = _db.Companies.ToList();
+            List<Company> objCompanyList = _unitofwork.Company.GetAll().ToList();
             return View(objCompanyList);
         }
 
@@ -27,8 +28,8 @@ namespace MartWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Companies.Add(obj);
-                _db.SaveChanges();
+                _unitofwork.Company.Add(obj);
+                _unitofwork.Save();
                 TempData["success"] = "Company Created Successfully";
                 return RedirectToAction("Index");
             }
@@ -41,7 +42,7 @@ namespace MartWeb.Controllers
             {
                 return NotFound();
             }
-            Company? companyFromDb = _db.Companies.Find(id);
+            Company? companyFromDb = _unitofwork.Company.Get(u => u.Id == id);
 
             if (companyFromDb == null)
             {
@@ -54,8 +55,8 @@ namespace MartWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Companies.Update(obj);
-                _db.SaveChanges();
+                _unitofwork.Company.Update(obj);
+                _unitofwork.Save();
                 TempData["success"] = "Company Update Successfully";
                 return RedirectToAction("Index", "Company");
             }
@@ -68,7 +69,7 @@ namespace MartWeb.Controllers
             {
                 return NotFound();
             }
-            Company? companyFromDb = _db.Companies.Find(id);
+            Company? companyFromDb = _unitofwork.Company.Get(u => u.Id == id);
             if (companyFromDb == null)
             {
                 return NotFound();
@@ -79,13 +80,13 @@ namespace MartWeb.Controllers
         public IActionResult DeletePOST(int? id)
         {
 
-            Company? obj = _db.Companies.Find(id);
+            Company? obj = _unitofwork.Company.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Companies.Remove(obj);
-            _db.SaveChanges();
+            _unitofwork.Company.Remove(obj);
+            _unitofwork.Save();
             TempData["success"] = "Company Delete Successfully";
             return RedirectToAction("Index", "Company");
         }
