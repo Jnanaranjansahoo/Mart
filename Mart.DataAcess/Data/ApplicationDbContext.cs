@@ -55,7 +55,6 @@ namespace Mart.DataAcess.Data
                     Price = 300,
                     ImageUrl = "d"
                 }
-
               );
         }
     }
